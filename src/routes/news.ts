@@ -6,22 +6,22 @@ let newsRouter = Router()
   // Handle GET 'api/newss/'
   .get('/', (req, res) => {
     newsModel.find().then(
-      (docs: Document[]) => { res.status(200).json(docs) },
-      (err: Error) => { console.error(err.message); res.status(500).end(err.message); }
+      (docs) => { res.status(200).json(docs) },
+      (err) => { console.error(err.message); res.status(500).end(err.message); }
     )
   })
   // Handle GET 'api/newss/:id'
   .get('/:id', (req, res) => {
     newsModel.findById(req.params.id).then(
-      (doc: Document) => { res.status(200).json(doc) },
-      (err: Error) => { console.error(err.message); res.status(500).end(err.message); }
+      (doc) => { res.status(200).json(doc) },
+      (err) => { console.error(err.message); res.status(500).end(err.message); }
     )
   })
   // Handle POST 'api/newss/'
   .post('/', (req, res) => {
     newsModel.create(req.body).then(
-      (doc: Document) => { res.status(200).json(doc) },
-      (err: Error) => { console.error(err.message); res.status(500).end(err.message); }
+      (doc) => { res.status(200).json(doc) },
+      (err) => { console.error(err.message); res.status(500).end(err.message); }
     )
   })
 

@@ -1,0 +1,21 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald:400,300,700);
+
+body {
+    font-family: 'Oswald', sans-serif !important;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0px;
+    transition: opacity 1s ease, height 1s ease;
+}
+
+.init-hidden {
+    display: none;
+}
+
+.visible {
+    opacity: 1;
+    height: 600px;
+    transition:  height 1s ease, opacity 1s ease;
+}

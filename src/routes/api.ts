@@ -4,7 +4,7 @@ import { newsRouter } from './news'
 
 // Use all these routes in the router
 let apiRouter = Router()
-  .use('/tasks', newsRouter)
+  .use('/news', newsRouter)
 //.use('/anotherpath', another_route)
 
 export { apiRouter }

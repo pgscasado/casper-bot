@@ -1,5 +1,6 @@
 import express from 'express'
 import bp from 'body-parser'
+import path from 'path'
 import dateformat from 'dateformat'
 import { apiRouter } from './routes/api'
 
@@ -31,8 +32,12 @@ class App {
   		next()
     })
     
+    console.log(path.join(__dirname, '../frontend'))
+    this.express.use('/', express.static(path.join(__dirname,'../frontend')))
+    this.express.use('/libs', express.static(path.join(__dirname, '../frontend/node_modules')))
     // Use API routes
     this.express.use('/api', apiRouter)
+    
   }
 }
 

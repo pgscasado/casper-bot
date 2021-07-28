@@ -1,7 +1,15 @@
 import mongoose from 'mongoose'
 
+interface News {
+  title: String,
+  description: String,
+  category: String,
+  picture_url: String,
+  news_url: String
+}
+
 // Define Task schema
-const News = new mongoose.Schema({
+const NewsSchema = new mongoose.Schema<News>({
   title: { type: String, required: true },
   description: { type: String, required: true },
   category: { type: String, required: true, enum: ['Esporte','Política','Entretenimento','Famosos']},
@@ -11,6 +19,6 @@ const News = new mongoose.Schema({
 })
 
 // Generate and register the Mongoose model from the schema
-const newsModel = mongoose.model('News', News)
+const newsModel = mongoose.model<News>('News', NewsSchema)
 
 export { newsModel }

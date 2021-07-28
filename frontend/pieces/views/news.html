@@ -1,0 +1,28 @@
+<div class="row" onload="controller.init()">
+    <div class="col-lg-5 col-sm col-md mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h3>Tasks</h3>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item mb-1">
+                    <div>
+                        <form class="form-inline d-flex justify-content-between" id="newtaskform">
+                            <input name="title" type="text" placeholder="Title" class="form-control">
+                            <select name="importance" class="custom-select">
+                                <option value="-1" disabled selected>Importance</option>
+                                <option value="0">Low</option>
+                                <option value="1">Medium</option>
+                                <option value="2">High</option>
+                            </select>
+                            <button class="btn btn-success" type="submit">
+                                <i class="far fa-paper-plane"></i> Send
+                            </button>
+                        </form>
+                    </div>
+                </li>
+                <div id="taskslist"></div>
+            </ul>
+        </div>
+    </div>
+</div>
