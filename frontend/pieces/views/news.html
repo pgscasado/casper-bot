@@ -1,28 +1,42 @@
-<div class="row" onload="controller.init()">
-    <div class="col-lg-5 col-sm col-md mx-auto">
-        <div class="card">
-            <div class="card-header">
-                <h3>Tasks</h3>
+<div class="row text-center" onload="controller.init()">
+    <h3>Painel de Controle</h3>
+    <div class="col-lg col-sm col-md mx-auto table-responsive">
+        <table class="table">
+            <thead>
+                <th scope="col">Links</th>
+                <th scope="col">Título</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Descrição</th>
+            </thead>
+            <tbody id='newslist'>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="interactionModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="interactionModalTitle"></h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body" id="interactionModalFields">
+                    
+                </div> 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <button type="button" class="btn btn-primary">Salvar</button>
+                </div>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item mb-1">
-                    <div>
-                        <form class="form-inline d-flex justify-content-between" id="newtaskform">
-                            <input name="title" type="text" placeholder="Title" class="form-control">
-                            <select name="importance" class="custom-select">
-                                <option value="-1" disabled selected>Importance</option>
-                                <option value="0">Low</option>
-                                <option value="1">Medium</option>
-                                <option value="2">High</option>
-                            </select>
-                            <button class="btn btn-success" type="submit">
-                                <i class="far fa-paper-plane"></i> Send
-                            </button>
-                        </form>
-                    </div>
-                </li>
-                <div id="taskslist"></div>
-            </ul>
         </div>
+    </div>
+    <div class="d-flex fixed-bottom flex-column align-items-end pb-5 pe-5">
+        <button class="btn btn-lg btn-primary btn-floating"
+            data-mdb-toggle="modal"
+            data-mdb-target="#interactionModal">
+            <i class="fas fa-plus"></i>
+        </button>
     </div>
 </div>

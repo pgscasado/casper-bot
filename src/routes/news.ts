@@ -1,11 +1,13 @@
 import { Router } from 'express'
-import { Document, Error } from 'mongoose'
 import { newsModel } from '../models/News'
 
-let newsRouter = Router()
+export const newsRouter = Router()
   // Handle GET 'api/newss/'
   .get('/', (req, res) => {
-    newsModel.find().then(
+    newsModel.paginate({
+      page: req.query.page || 1,
+      limit: 10
+    }).then(
       (docs) => { res.status(200).json(docs) },
       (err) => { console.error(err.message); res.status(500).end(err.message); }
     )
@@ -13,7 +15,7 @@ let newsRouter = Router()
   // Handle GET 'api/newss/:id'
   .get('/:id', (req, res) => {
     newsModel.findById(req.params.id).then(
-      (doc) => { res.status(200).json(doc) },
+      (doc) => { res.status(doc ? 200 : 404).json(doc) },
       (err) => { console.error(err.message); res.status(500).end(err.message); }
     )
   })
@@ -24,5 +26,15 @@ let newsRouter = Router()
       (err) => { console.error(err.message); res.status(500).end(err.message); }
     )
   })
-
-export { newsRouter }
+  .delete('/:id', (req, res) => {
+    newsModel.findByIdAndDelete(req.params.id).then(
+      (doc) => { res.status(doc ? 200 : 404).json(doc) },
+      (err) => { console.error(err.message); res.status(500).end(err.message); }
+    )
+  })
+  .patch('/:id', (req, res) => {
+    newsModel.findByIdAndUpdate(req.params.id, req.body).then(
+      (doc) => { res.status(doc ? 200 : 404).json(doc) },
+      (err) => { console.error(err.message); res.status(500).end(err.message); }
+    )
+  })

@@ -1,6 +1,7 @@
-import mongoose from 'mongoose'
+import { Document, Schema, model } from 'mongoose'
+import { mongoosePagination, Pagination } from 'mongoose-paginate-ts'
 
-interface News {
+interface News extends Document {
   title: String,
   description: String,
   category: String,
@@ -9,7 +10,7 @@ interface News {
 }
 
 // Define Task schema
-const NewsSchema = new mongoose.Schema<News>({
+const NewsSchema = new Schema<News>({
   title: { type: String, required: true },
   description: { type: String, required: true },
   category: { type: String, required: true, enum: ['Esporte','Política','Entretenimento','Famosos']},
@@ -18,7 +19,8 @@ const NewsSchema = new mongoose.Schema<News>({
   created_at: { type: Date, default: Date.now() }
 })
 
+NewsSchema.plugin(mongoosePagination)
 // Generate and register the Mongoose model from the schema
-const newsModel = mongoose.model<News>('News', NewsSchema)
+const newsModel = model<News, Pagination<News>>('News', NewsSchema)
 
 export { newsModel }

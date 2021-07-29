@@ -19,3 +19,18 @@ body {
     height: 600px;
     transition:  height 1s ease, opacity 1s ease;
 }
+
+.trim-text {
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: '...';
+}
+
+.card-body {
+    overflow-x: auto;
+}
+
+table {
+    table-layout: fixed;
+    min-width: 80vw;
+}
