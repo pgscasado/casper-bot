@@ -22,5 +22,7 @@ export const webhookRouter = Router()
 		if (Object.keys(handlersMap).includes(intent.displayName))
 			handlersMap[intent.displayName].run(intentObj, req, res)
 		else
-			return res.status(400).send("Unknown intent")
+			return res.status(200).json({
+				'fulfillmentText': 'Não sei te responder isso :('
+			})
 	})

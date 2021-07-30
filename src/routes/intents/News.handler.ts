@@ -19,14 +19,15 @@ interface FBGeneric {
 
 export const newsIntentHandler = new IntentHandler('Default Welcome Intent - yes')
 	.default((intent, req, res) => {
-		if(intent.parameters['noticias_categoria'] === 'Esporte') {
+		if(['Esporte', 'Política', 'Entretenimento', 'Famosos'].includes(intent.parameters['noticias_categoria'])) {
 			newsModel.paginate({
+				query: { category: intent.parameters['noticias_categoria'] },
 				page: req.query.page || 1,
 				limit: 10
 			}).then(
 				(docs) => { 
 					let elements: FBGeneric[] = []
-					if(docs)
+					if(docs && docs.docs && docs.docs.length > 0) {
 						docs.docs.forEach((news) => {
 							elements.push({
 								image_url: news.picture_url.valueOf(),
@@ -46,26 +47,59 @@ export const newsIntentHandler = new IntentHandler('Default Welcome Intent - yes
 								}
 							})
 						})
-					res.status(200).json({
-						"fulfillmentMessages": [{
-							"payload": {
-								"facebook": {
-									"attachment": {
-										"type": "template",
-										"payload": {
-										"template_type": "generic",
-										"elements": elements
+						res.status(200).json({
+							"fulfillmentMessages": [{
+								"payload": {
+									"facebook": {
+										"attachment": {
+											"type": "template",
+											"payload": {
+											"template_type": "generic",
+											"elements": elements
+											}
 										}
 									}
-								}
-							},
-							"platform": "FACEBOOK"
-						}]
-				  }) },
+								},
+								"platform": "FACEBOOK"
+							}]
+						  })
+					} else {
+						res.status(200).json({
+							"fulfillmentMessages": [
+								{
+									"quickReplies": {
+										"title": "Me desculpe, eu não tenho nenhuma notícia para essa categoria :(\nVocê quer saber sobre outro tipo de notícia?",
+										"quickReplies": [
+											"Esportes",
+											"Política",
+											"Entretenimento",
+											"Famosos"
+										]
+									},
+									"platform": "FACEBOOK"
+								},
+							]
+						})
+					} },
 				(err) => { console.error(err.message); res.status(500).end(err.message); }
 			  )
 		} else {
-			console.error("Unknown parameter!");
-			res.status(400).end("Unknown parameter!");
+			console.error(`Unknown parameter ${intent.parameters['noticias_categoria']}`);
+			res.status(200).json({
+				"fulfillmentMessages": [
+					{
+						"quickReplies": {
+							"title": "Eu só posso te fornecer notícias sobre os seguintes temas: ",
+							"quickReplies": [
+								"Esportes",
+								"Política",
+								"Entretenimento",
+								"Famosos"
+							]
+						},
+						"platform": "FACEBOOK"
+					},
+				]
+			})
 		}
 	})
