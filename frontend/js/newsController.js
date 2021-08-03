@@ -238,13 +238,13 @@ controller.renderNews = function(cb){
 
     this.news.docs.forEach(t => {
         let editIcon = document.createElement("button");
-        editIcon.classList.add('btn', 'btn-sm', 'btn-warning', 'w-100')
+        editIcon.classList.add('btn', 'btn-sm', 'btn-warning', 'w-100', 'over')
         editIcon.innerHTML = '<i class="fas fa-pen"></i>'
         editIcon.setAttribute('data-mdb-toggle', 'modal')
         editIcon.setAttribute('data-mdb-target', '#interactionModal')
         editIcon.addEventListener('click', () => this.startModal('edit', t))
         let deleteIcon = document.createElement("button");
-        deleteIcon.classList.add('btn', 'btn-sm', 'btn-danger', 'w-100')
+        deleteIcon.classList.add('btn', 'btn-sm', 'btn-danger', 'w-100', 'over')
         deleteIcon.innerHTML = '<i class="fas fa-trash"></i>'
         deleteIcon.addEventListener('click', () => this.deleteNews(t._id, () => {
             this.fetchNews(() => {
@@ -259,11 +259,15 @@ controller.renderNews = function(cb){
         // imgIcon.addEventListener('click', () => window.open(t.picture_url))
         // url buttons
         let imgIcon = document.createElement("button");
-        imgIcon.classList.add('btn', 'btn-sm', 'btn-primary', 'w-100')
+        imgIcon.classList.add('btn', 'btn-sm', 'btn-primary', 'w-100', 'over', 'tooltip-init')
         imgIcon.innerHTML = '<i class="fas fa-image"></i>'
         imgIcon.addEventListener('click', () => window.open(t.picture_url))
+        imgIcon.setAttribute('data-mdb-toggle','tooltip')
+        // imgIcon.setAttribute('data-mdb-placement','bottom')
+        imgIcon.setAttribute('data-mdb-html','true')
+        imgIcon.setAttribute('title', `<img src="${t.picture_url}" class="img-fluid"/>`)
         let urlIcon = document.createElement("button");
-        urlIcon.classList.add('btn', 'btn-sm', 'btn-primary', 'w-100')
+        urlIcon.classList.add('btn', 'btn-sm', 'btn-primary', 'w-100', 'over')
         urlIcon.innerHTML = '<i class="fas fa-link"></i>'
         urlIcon.addEventListener('click', () => window.open(t.news_url))
         let btnGroup = document.createElement('div');
@@ -363,6 +367,9 @@ controller.renderNews = function(cb){
     row.appendChild(document.createElement('td'))
     document.querySelector("#newslist").appendChild(row);
 
+    document.querySelectorAll('[data-mdb-toggle="tooltip"]').forEach((tooltip) => {
+        new mdb.Tooltip(tooltip).enable();
+    });
     cb && cb();
 }
 
