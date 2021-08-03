@@ -17,7 +17,7 @@ class App {
 
 	private config () : void {
     // Make possible getting JSON from the requests
-    this.express.use(bp.json())
+    this.express.use(express.json())
 
   	// Enable CORS
   	this.express.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -37,12 +37,7 @@ class App {
     this.express.use('/libs', express.static(path.join(__dirname, '../frontend/node_modules')))
     // Use API routes
 
-    this.express.use('/api', (req, res, next) => {
-      if(req.headers.authorization === 'Bearer C4Sp3rB07BE3TR0OT1w56rgrt1hb56twef')
-        return next()
-      else
-        return res.status(401).send('Unauthorized')
-    }, apiRouter)
+    this.express.use('/api', apiRouter)
     
   }
 }

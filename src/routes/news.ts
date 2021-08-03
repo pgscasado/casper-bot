@@ -6,7 +6,8 @@ export const newsRouter = Router()
   .get('/', (req, res) => {
     newsModel.paginate({
       page: req.query.page || 1,
-      limit: 10
+      sort: { created_at: -1 },
+      limit: 5
     }).then(
       (docs) => { res.status(200).json(docs) },
       (err) => { console.error(err.message); res.status(500).end(err.message); }
@@ -21,6 +22,7 @@ export const newsRouter = Router()
   })
   // Handle POST 'api/newss/'
   .post('/', (req, res) => {
+    req.body['created_at'] = new Date().toISOString();
     newsModel.create(req.body).then(
       (doc) => { res.status(200).json(doc) },
       (err) => { console.error(err.message); res.status(500).end(err.message); }

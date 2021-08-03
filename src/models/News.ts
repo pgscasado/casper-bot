@@ -15,8 +15,8 @@ const NewsSchema = new Schema<News>({
   description: { type: String, required: true },
   category: { type: String, required: true, enum: ['Esporte','Política','Entretenimento','Famosos']},
   picture_url: { type: String, required: true },
-  news_url: { type: String, required: true },
-  created_at: { type: Date, default: Date.now() }
+  news_url: { type: String, required: true, unique: true },
+  created_at: { type: Date, default: new Date().toISOString() }
 })
 
 NewsSchema.plugin(mongoosePagination)

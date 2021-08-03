@@ -1,5 +1,10 @@
-<div class="row">
+<div class="row" onload="controller.init()">
     <div class="col-8 mx-auto text-center">
         <h1>Bem vindo(a) ao Painel de Controle do Casper</h1>
+        <h4 class="mt-5">Por favor, insira o PIN para acessar o painel de controle</h4>
+        <div class="form-outline w-25 mx-auto mt-3">
+            <input type="password" id="typeNumber" class="form-control" pattern="[0-9]*" inputmode="numeric" maxlength="4" onkeyup="controller.sanitizeAndSubmit()"/>
+            <label class="form-label" for="typeNumber">PIN de acesso</label>
+        </div>
     </div>
 </div>

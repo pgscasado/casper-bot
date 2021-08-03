@@ -22,6 +22,7 @@ export const newsIntentHandler = new IntentHandler('Default Welcome Intent - yes
 		if(['Esporte', 'Política', 'Entretenimento', 'Famosos'].includes(intent.parameters['noticias_categoria'])) {
 			newsModel.paginate({
 				query: { category: intent.parameters['noticias_categoria'] },
+				sort: { created_at: -1 },
 				page: req.query.page || 1,
 				limit: 10
 			}).then(

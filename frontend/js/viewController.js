@@ -4,7 +4,7 @@
 const defaultSocket = `${window.location.hostname}${window.location.port ? ":"+window.location.port:""}`,
     apiRoute = `${window.location.hostname}/api`,
     pieces = {
-        "/": {file:"welcome.html", displayName: "Home", controller: ""},
+        "/": {file:"welcome.html", displayName: "Home", controller: "js/authenticationController.js"},
         "/news-cp": {file:"news.html", displayName: "Painel de Controle", controller: "js/newsController.js"},
         "/contact": {file:"contact.html", displayName: "Contato", controller: ""},
         "/not-found": {file:"not-found.html", displayName: "Not Found", controller: ""},
@@ -94,4 +94,9 @@ function initComponents(){
     });
 }
 
-body.onload = initComponents();
+document.body.onload = initComponents();
+setInterval(() => {
+    document.querySelectorAll('.form-outline').forEach((formOutline) => {
+        new mdb.Input(formOutline).init();
+    });
+}, 500)

@@ -3,6 +3,7 @@
     <div class="col-lg col-sm col-md mx-auto table-responsive">
         <table class="table">
             <thead>
+                <th scope="col">Ações</th>
                 <th scope="col">Links</th>
                 <th scope="col">Título</th>
                 <th scope="col">Categoria</th>
@@ -13,21 +14,47 @@
         </table>
     </div>
     <div class="modal fade" id="interactionModal" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="interactionModalTitle"></h5>
-                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"
-                    ></button>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="interactionModalFields">
-                    
+                    <h3 id="modalAction">Criar Notícia</h3>
+                    <div class="form-outline mb-3">
+                        <input type="url" id="newsURL" class="form-control" />
+                        <label class="form-label" for="newsURL">Link (URL)</label>
+                    </div>
+                    <div class="form-outline mb-3">
+                        <input type="url" id="imgURL" class="form-control" onchange="controller.tryGetImage()"/>
+                        <label class="form-label" for="imgURL">Link da imagem (URL)</label>
+                    </div>
+                    <img src="" id="previewImg" class="img-fluid mb-3" alt="A imagem aparecerá aqui"/>
+                    <div class="select align-items-center mb-3">
+                        <select id="categoryInput" class="select-text" required>
+                            <option value="0" disabled selected></option>
+                            <option value="1">Esporte</option>
+                            <option value="2">Famosos</option>
+                            <option value="3">Política</option>
+                            <option value="4">Entretenimento</option>
+                        </select>
+                        <label class="select-label">Categoria</label>
+                    </div>
+                    <div class="form-outline mb-3">
+                        <input type="text" id="titleInput" class="form-control" />
+                        <label class="form-label" for="titleInput">Título</label>
+                    </div>
+                    <div class="form-outline mb-3">
+                        <textarea class="form-control" id="descriptionInput" rows="4"></textarea>
+                        <label class="form-label" for="descriptionInput">Descrição</label>
+                    </div>
                 </div> 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">
+                    <button id="closeModalButton" type="button" class="btn btn-danger" data-mdb-dismiss="modal">
                         Cancelar
                     </button>
-                    <button type="button" class="btn btn-primary">Salvar</button>
+                    <button id="submitButton" type="button" class="btn btn-primary">Salvar</button>
                 </div>
             </div>
         </div>
@@ -35,7 +62,8 @@
     <div class="d-flex fixed-bottom flex-column align-items-end pb-5 pe-5">
         <button class="btn btn-lg btn-primary btn-floating"
             data-mdb-toggle="modal"
-            data-mdb-target="#interactionModal">
+            data-mdb-target="#interactionModal"
+            onclick="controller.startModal('create')">
             <i class="fas fa-plus"></i>
         </button>
     </div>

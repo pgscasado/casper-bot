@@ -34,3 +34,82 @@ table {
     table-layout: fixed;
     min-width: 80vw;
 }
+
+/* MATERIAL UI SELECT https://codepen.io/mcl28Magui/pen/PoqWEJe ------------------------------*/
+.select {
+    position: relative;
+    width: 100%;
+    display: block;
+  }
+  
+.select-text {
+    position: relative;
+    font-family: inherit;
+    background-color: transparent;
+    width: 100%;
+    padding: 0.33em 0.75em 0.33em 0.75em;
+    font-size: 18px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0, 0.2);
+}
+
+/* Remove focus */
+.select-text:focus {
+    outline: none;
+    border: 2px solid #1266F1;
+}
+
+    /* Use custom arrow */
+.select .select-text {
+    appearance: none;
+    -webkit-appearance:none;
+    color: gray;
+}
+
+.select:after {
+    position: absolute;
+    top: 18px;
+    right: 10px;
+    /* Styling the down arrow */
+    width: 0;
+    height: 0;
+    padding: 0;
+    content: '';
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid rgba(0, 0, 0, 0.2);
+
+    pointer-events: none;
+}
+
+/* LABEL ======================================= */
+.select-label {
+    top: 0.33em;
+    color: rgba(0,0,0, 0.6);
+    background: white;
+    font-size: 1rem;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    padding: 0 5px;
+    left: 10px;
+    top: 12px;
+    transition: 0.2s ease all;
+}
+
+
+/* active state */
+.select-text:focus ~ .select-label, .select-text:valid ~ .select-label {
+    color: #1266F1;
+    top: -8px;
+    transition: 0.2s ease all;
+    font-size: 14px;
+}
+
+.select-text:valid:not(focus) ~ .select-label {
+    color: rgba(0,0,0, 0.6);
+    background: rgba(255,255,255);
+}
+.select-text:valid:focus ~ .select-label {
+    color: #1266F1;
+}
