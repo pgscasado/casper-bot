@@ -43,6 +43,8 @@ controller.tryGetImage = function() {
 }
 
 controller.startModal = function(param, data){
+    if(document.getElementById("modalErrorPopUp").classList.contains('show'))
+        new mdb.Collapse(document.getElementById("modalErrorPopUp"))
     let action = document.getElementById('modalAction'),
         newsURL = document.getElementById('newsURL'),
         imgURL = document.getElementById('imgURL'),
@@ -113,6 +115,10 @@ controller.startModal = function(param, data){
                     console.log(error)
                     window.location.href = '/#/'
                 })
+            } else {
+                document.getElementById('modalErrorPopUpText').innerText = `Por favor, preencha os campos: 
+                ${newsURL.value ? '':'Link da notícia\n'}${imgURL.value ? '': 'Link da imagem\n'}${category.value ? '' : 'Categoria\n'}${title.value ? '' : 'Título da notícia\n'}${description.value ? '' : 'Descrição da notícia'}`
+                new mdb.Collapse(document.querySelector('#modalErrorPopUp'))
             }
         })
     } else if (param === 'edit') {
@@ -173,6 +179,10 @@ controller.startModal = function(param, data){
                     console.error(error);
                     window.location.href = '/#/'
                 });
+            } else {
+                document.getElementById('modalErrorPopUpText').innerText = `Por favor, preencha os campos: 
+                ${newsURL.value ? '':'Link da notícia\n'}${imgURL.value ? '': 'Link da imagem\n'}${category.value ? '' : 'Categoria\n'}${title.value ? '' : 'Título da notícia\n'}${description.value ? '' : 'Descrição da notícia'}`
+                new mdb.Collapse(document.querySelector('#modalErrorPopUp'))
             }
         })
     }
@@ -277,7 +287,7 @@ controller.renderNews = function(cb){
             document.createElement("td"), document.createElement("td"), document.createElement("td"), document.createElement("td"), document.createElement("td")
         ]
         col.forEach(c => {
-            c.classList.add('text-center');
+            c.classList.add('text-left');
             row.appendChild(c);
         }); 
         col[0].appendChild(manageGroup)
@@ -306,6 +316,7 @@ controller.renderNews = function(cb){
         btns = [document.createElement("button"), document.createElement("button"), document.createElement("button")]
     btnGroup.classList.add('btn-group')
     btnGroup.setAttribute('role', 'group')
+    btnGroup.classList.add('over')
     btns[0].classList.add('btn', 'btn-primary')
     btns[0].innerText = "Anterior"
     btns[1].classList.add('btn', 'btn-primary', 'active')

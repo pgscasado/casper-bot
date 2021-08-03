@@ -1,5 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Oswald:400,300,700);
 
+.card {
+    overflow-y: hidden;   
+}
+
 body {
     font-family: 'Oswald', sans-serif !important;
 }
@@ -35,6 +39,13 @@ table {
     min-width: 80vw;
 }
 
+.over {
+    z-index: 2;
+}
+
+.under {
+    z-index: 0;
+}
 /* MATERIAL UI SELECT https://codepen.io/mcl28Magui/pen/PoqWEJe ------------------------------*/
 .select {
     position: relative;

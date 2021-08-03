@@ -49,6 +49,10 @@
                         <textarea class="form-control" id="descriptionInput" rows="4"></textarea>
                         <label class="form-label" for="descriptionInput">Descrição</label>
                     </div>
+                    <div class="collapse mt-3 card text-white bg-danger"
+                    data-mdb-toggle="collapse" data-mdb-target="#modalErrorPopUp" id="modalErrorPopUp">
+                        <div class="card-body" id="modalErrorPopUpText"></div>
+                    </div>
                 </div> 
                 <div class="modal-footer">
                     <button id="closeModalButton" type="button" class="btn btn-danger" data-mdb-dismiss="modal">
@@ -59,7 +63,7 @@
             </div>
         </div>
     </div>
-    <div class="d-flex fixed-bottom flex-column align-items-end pb-5 pe-5">
+    <div class="d-flex fixed-bottom flex-column align-items-end pb-5 pe-5 under">
         <button class="btn btn-lg btn-primary btn-floating"
             data-mdb-toggle="modal"
             data-mdb-target="#interactionModal"

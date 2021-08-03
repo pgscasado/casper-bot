@@ -6,5 +6,9 @@
             <input type="password" id="typeNumber" class="form-control" pattern="[0-9]*" inputmode="numeric" maxlength="4" onkeyup="controller.sanitizeAndSubmit()"/>
             <label class="form-label" for="typeNumber">PIN de acesso</label>
         </div>
+        <div class="collapse mt-3 card text-white bg-danger"
+        data-mdb-toggle="collapse" data-mdb-target="#errorPopUp" id="errorPopUp">
+            <div class="card-body" id="errorPopUpText"></div>
+        </div>
     </div>
 </div>

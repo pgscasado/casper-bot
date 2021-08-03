@@ -1,7 +1,21 @@
 controller = {}
 
 controller.init = function() {
-	console.log("it works")
+	if(localStorage.getItem('token'))
+	fetch('api/authenticate', {
+		method: 'GET',
+		headers: {
+			"Authorization": `Bearer ${localStorage.getItem('token')}`,
+			"Accept": "application/json",
+			"Content-Type": "application/json"
+		}
+	}).then((res) => res.json())
+	.then(() => {
+		document.location.href = "/#/news-cp"
+	}, (error) => {
+		document.getElementById("errorPopUpText").innerText = 'Por favor insira o PIN, pois sua sessão expirou.'
+		new mdb.Collapse(document.querySelector('.collapse.card'))
+	})
 }
 
 controller.sanitizeAndSubmit = function() {
@@ -27,6 +41,9 @@ controller.sanitizeAndSubmit = function() {
 			}).catch((error) => {
 				input.value = ''
 				input.removeAttribute('disabled')
+				document.getElementById("errorPopUpText").innerText = 'O PIN fornecido está errado!'
+				if(!document.querySelector('.collapse.card').classList.contains('show'))
+					new mdb.Collapse(document.querySelector('.collapse.card'))
 			})
 	}
 }

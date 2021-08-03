@@ -24,6 +24,9 @@ const verifyWebhookToken = (req: Request, res: Response, next: NextFunction) => 
 }
 // Use all these routes in the router
 let apiRouter = Router()
+  .get('/authenticate', verifyToken, (req, res) => {
+    res.status(200).json('Your token works.')
+  })
   .post('/authenticate', (req, res) => {
     if (req.body.password) {
       if(req.body.password+'' === process.env.API_PASSWORD+'') {
