@@ -10,14 +10,14 @@ export const newsRouter = Router()
       limit: 5
     }).then(
       (docs) => { res.status(200).json(docs) },
-      (err) => { console.error(err.message); res.status(500).end(err.message); }
+      (err) => { console.error(err.message); res.status(500).json(err.message); }
     )
   })
   // Handle GET 'api/newss/:id'
   .get('/:id', (req, res) => {
     newsModel.findById(req.params.id).then(
-      (doc) => { res.status(doc ? 200 : 404).json(doc) },
-      (err) => { console.error(err.message); res.status(500).end(err.message); }
+      (doc) => { res.status(doc ? 200 : 404).json(doc||'Notícia não encontrada') },
+      (err) => { console.error(err.message); res.status(500).json(err.message); }
     )
   })
   // Handle POST 'api/newss/'
@@ -25,18 +25,28 @@ export const newsRouter = Router()
     req.body['created_at'] = new Date().toISOString();
     newsModel.create(req.body).then(
       (doc) => { res.status(200).json(doc) },
-      (err) => { console.error(err.message); res.status(500).end(err.message); }
-    )
+      (err) => { if (err.code === 11000) {
+        res.status(409).json('Não é possível criar outra notícia com essa URL')
+      } else { 
+        console.error(err.message); res.status(500).json(err.message); 
+      }
+    })
   })
   .delete('/:id', (req, res) => {
     newsModel.findByIdAndDelete(req.params.id).then(
-      (doc) => { res.status(doc ? 200 : 404).json(doc) },
-      (err) => { console.error(err.message); res.status(500).end(err.message); }
+      (doc) => { res.status(doc ? 200 : 404).json(doc||'Notícia não encontrada') },
+      (err) => { console.error(err.message); res.status(500).json(err.message); }
     )
   })
   .patch('/:id', (req, res) => {
     newsModel.findByIdAndUpdate(req.params.id, req.body).then(
-      (doc) => { res.status(doc ? 200 : 404).json(doc) },
-      (err) => { console.error(err.message); res.status(500).end(err.message); }
+      (doc) => { res.status(doc ? 200 : 404).json(doc||'Notícia não encontrada') },
+      (err) => { 
+        if (err.code === 11000) {
+          res.status(409).json('Não é possível criar outra notícia com essa URL')
+        } else { 
+          console.error(err.message); res.status(500).json(err.message); 
+        }
+      }
     )
   })

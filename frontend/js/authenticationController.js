@@ -1,6 +1,9 @@
 controller = {}
 
 controller.init = function() {
+	document.body.style = ""
+	const bd = document.querySelector('.modal-backdrop')
+	if(bd) bd.parentElement.removeChild(bd)
 	if(localStorage.getItem('token'))
 	fetch('api/authenticate', {
 		method: 'GET',
@@ -46,10 +49,6 @@ controller.sanitizeAndSubmit = function() {
 					new mdb.Collapse(document.querySelector('.collapse.card'))
 			})
 	}
-}
-
-controller.authenticate = function() {
-
 }
 
 exportController = function(cb){

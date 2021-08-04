@@ -96,6 +96,11 @@ controller.startModal = function(param, data){
                         picture_url: imgURL.value,
                         news_url: newsURL.value,
                     })
+                }).then(response => {
+                    if (response.ok)
+                        return response.json()
+                    else
+                        throw new Error(response.status)
                 }).then(() => {
                     submit.classList.remove('btn-primary')
                     submit.classList.add('btn-success')
@@ -111,10 +116,22 @@ controller.startModal = function(param, data){
                             closeModal.onclick=undefined
                         });
                     })
-                }).catch((error) => {
-                    console.log(error)
-                    window.location.href = '/#/'
-                })
+                }).catch((error) => error.message)
+                .then(error => {
+                    if (error == 409){
+                        document.getElementById('modalErrorPopUpText').innerText = `Não é possível criar outra notícia com essa URL`
+                        new mdb.Collapse(document.querySelector('#modalErrorPopUp'))
+                        
+                        submit.removeAttribute('disabled')
+                        submit.classList.remove('btn-success')
+                        submit.classList.add('btn-primary')
+                        submit.innerText = 'Salvar'
+                        
+                        closeModal.classList.remove('btn-primary')
+                        closeModal.classList.add('btn-danger')
+                        closeModal.innerText = 'Cancelar'
+                    }
+                });
             } else {
                 document.getElementById('modalErrorPopUpText').innerText = `Por favor, preencha os campos: 
                 ${newsURL.value ? '':'Link da notícia\n'}${imgURL.value ? '': 'Link da imagem\n'}${category.value ? '' : 'Categoria\n'}${title.value ? '' : 'Título da notícia\n'}${description.value ? '' : 'Descrição da notícia'}`
@@ -157,7 +174,12 @@ controller.startModal = function(param, data){
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify(newsbody)
-                }).then(response => response.json())
+                }).then(response => {
+                    if (response.status == 200)
+                        return response.json()
+                    else
+                        throw new Error(response.status)
+                })
                 .then(json => {
                     console.log(json);
                     submit.classList.remove('btn-primary')
@@ -174,10 +196,21 @@ controller.startModal = function(param, data){
                             closeModal.onclick=undefined
                         });
                     })
-                })
-                .catch(error => {
-                    console.error(error);
-                    window.location.href = '/#/'
+                }).catch((error) => error.message)
+                .then(error => {
+                    if (error == 409){
+                        document.getElementById('modalErrorPopUpText').innerText = `Não é possível criar outra notícia com essa URL`
+                        new mdb.Collapse(document.querySelector('#modalErrorPopUp'))
+                        
+                        submit.removeAttribute('disabled')
+                        submit.classList.remove('btn-success')
+                        submit.classList.add('btn-primary')
+                        submit.innerText = 'Salvar'
+                        
+                        closeModal.classList.remove('btn-primary')
+                        closeModal.classList.add('btn-danger')
+                        closeModal.innerText = 'Cancelar'
+                    }
                 });
             } else {
                 document.getElementById('modalErrorPopUpText').innerText = `Por favor, preencha os campos: 
